@@ -64,7 +64,8 @@ router.put("/:id", async (req, res) => {
     if (!post) return res.status(404).json({ msg: "User not found" });
 
     // Update the user name and age
-    (post.firstName = req.body.firstName),
+    (post.id = req.body.id),
+      (post.firstName = req.body.firstName),
       (post.lastName = req.body.lastName),
       (post.maidenName = req.body.maidenName),
       (post.age = req.body.age),
@@ -77,7 +78,8 @@ router.put("/:id", async (req, res) => {
       (post.image = req.body.image),
       (post.bloodGroup = req.body.bloodGroup),
       (post.height = req.body.height),
-      (post.weight = req.body.weight);
+      (post.weight = req.body.weight),
+      (post.city = req.body.city);
     await post.save();
 
     res.json(post);
@@ -92,6 +94,7 @@ router.put("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = [
+    "id",
     "firstName",
     "lastName",
     "maidenName",
@@ -106,6 +109,7 @@ router.patch("/:id", async (req, res) => {
     "bloodGroup",
     "height",
     "weight",
+    "city",
   ];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
